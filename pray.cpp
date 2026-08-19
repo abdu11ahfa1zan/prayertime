@@ -1,0 +1,115 @@
+#include <iostream>
+#include <cmath>
+#include <ctime>
+#include <cstdio>
+#include <string>
+#include <format>
+
+
+
+int main() {
+    time_t now = time(0);
+    tm* local = localtime(&now);
+
+    int month = local->tm_mon + 1;  // just the month
+    int day   = local->tm_mday;     // just the day
+    
+    
+FILE* pipe = popen("curl -s ipinfo.io | grep loc", "r");  
+char buffer[128];
+std::string result = "";
+ (fgets(buffer, sizeof(buffer), pipe) != NULL);
+{     
+    result += buffer;                                     
+}
+pclose(pipe);
+
+// extract just the coordinates
+int start = result.find("\"loc\": \"") + 8;
+int end = result.find("\"", start);
+std::string coords = result.substr(start, end - start); // "24.8608,67.0104"
+
+// now split by comma
+int commaPos = coords.find(",");
+std::string lat = coords.substr(0, commaPos); 
+std::string lon = coords.substr(commaPos + 1);
+
+    double latitude = stod(lat);
+    double longtitude = stod(lon);
+
+//pi:
+double pi = 3.14159265358979;
+    //months
+    int months[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    int dayofyear = day;
+    for (int i = 0; i < month - 1; i++) {
+    dayofyear += months[i];
+    }
+
+    //solar declination
+    double nn = 360.0/365 * (dayofyear - 81);
+    double rad = nn * (3.14159265358979 / 180.0);
+    double declination = sin(rad);
+    double solardeclination = 23.45 * declination;
+    
+    //EoT
+    double eot = 9.87 * sin(2 * rad) - 7.53 * cos(rad) - 1.5 * sin(rad); 
+    
+    //Duhr
+    double duhr = 12 - (eot/60) - (longtitude - 75) / 15;
+    double duhrdec;
+    double decimal = modf(duhr, &duhrdec);
+    //decimal = 0.574..
+    //duhrdec = 12
+    int zzzz = int(duhrdec);
+    int zuhrmin = decimal * 60;
+    std::string zuhrtime = std::to_string(zzzz) + ":" + std::to_string(zuhrmin);
+                                                                                //std::cout << '\n' << zuhrtime;
+
+    //fajr:::
+    double fajr = (sin(-18.0 * pi/180.0) - sin(latitude * pi/180.0) * sin(solardeclination * pi/180.0)) / (cos(latitude * pi/180.0) * cos(solardeclination * pi/180.0));
+    double fajr1 = acos(fajr) * (180.0 / pi);
+    double fajrtime = duhr - (fajr1 / 15.0);
+    double fajrdec;
+    double decimalfajr = modf(fajrtime, &fajrdec);
+    int fajrmin = decimalfajr * 60;
+    int ffff = int(fajrdec);
+    std::string fajrTIME = std::to_string(ffff) + ":" + std::to_string(fajrmin);
+
+    //isha:::
+    double ishatime = duhr + (fajr1 / 15.0);
+    double ishadec;
+    double decimalisha = modf(ishatime, &ishadec);
+    int ishadec1 = ishadec - 12;
+    int ishamin = decimalisha * 60;
+    int iiii = int(ishadec1);
+    std::string ishaTIME = std::to_string(iiii) + ":" + std::to_string(ishamin);
+
+    //maghrib
+    double maghrib = (sin(-0.833 * pi/180.0) - sin(latitude * pi/180.0) * sin(solardeclination * pi/180.0)) / (cos(latitude * pi/180.0) * cos(solardeclination * pi/180.0));
+    double maghrib1 = acos(maghrib) * (180.0 / pi);
+    double maghribtime = duhr + (maghrib1 / 15.0);
+    double maghribdec;
+    double decimalmaghrib = modf(maghribtime, &maghribdec);
+    int maghribdec1 = maghribdec - 12;
+    int maghribmin = decimalmaghrib * 60;
+    int mmmm = int(maghribdec1);
+    std::string maghribTIME = std::to_string(mmmm) + ":" + std::to_string(maghribmin);    
+
+
+//asr
+double asrangle = atan(1.0 / (2.0 + tan((latitude - solardeclination) * pi/180.0))) * (180.0 / pi);
+double asr = (sin(asrangle * pi/180.0) - sin(latitude * pi/180.0) * sin(solardeclination * pi/180.0)) / (cos(latitude * pi/180.0) * cos(solardeclination * pi/180.0));
+double asr1 = acos(asr) * (180.0 / pi);
+double asrtime = duhr + (asr1 / 15.0);
+int hours = (int)asrtime - 12;
+int minutes = (int)((asrtime - (int)asrtime) * 60);
+std::string asrTIME = std::to_string(hours) + ":" + std::to_string(minutes);
+
+std::cout << "Fajr: " << fajrTIME << '\n' 
+          << "Zuhr: " << zuhrtime << '\n' 
+          << "Asr: " << asrTIME << '\n' 
+          << "Maghrib: " << maghribTIME << '\n' 
+          << "Isha: " << ishaTIME << '\n';
+return 0;
+}
