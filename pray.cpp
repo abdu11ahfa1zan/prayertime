@@ -142,7 +142,15 @@ else if (arg == "-s") {
     std::cout << ishaTIME;
  }
  else if (arg == "-h") {
-    std::cout << "You reached help. here are some commands:" << '\n' << "use the first letter of each prayer with a" << '\n' << "dash to get it's individual time. such as -z for Zuhr. (not capital)";
+        std::cout << "You reached help." 
+          << '\n' << "Use the first letter of each prayer with a dash" 
+          << '\n' << " to get it's individual time. such as -z for"
+          << '\n' << "Zuhr. (not capital). Use no flag for all prayers." << '\n';  }
+ else {
+        std::cout << "You gave a wrong flag so You reached help." 
+          << '\n' << "Use the first letter of each prayer with a" 
+          << '\n' << "dash to get it's individual time. such as"
+          << '\n' << "-z for Zuhr. (not capital)" << '\n'; 
  }
  }
 return 0;
