@@ -7,7 +7,7 @@
 
 
 
-int main() {
+int main(int argc, char* argv[]) {
     time_t now = time(0);
     tm* local = localtime(&now);
 
@@ -112,12 +112,38 @@ double pi = 3.14159265358979;
     int hours = (int)asrtime - 12;
     int minutes = (int)((asrtime - (int)asrtime) * 60);
     std::string asrTIME = std::to_string(hours) + ":" + std::to_string(minutes);
-
+if (argc == 1) {
 std::cout << "Fajr: " << fajrTIME << '\n' 
           << "Sunrise: " << sunriseTIME << '\n' 
           << "Zuhr: " << zuhrtime << '\n' 
           << "Asr: " << asrTIME << '\n' 
           << "Maghrib: " << maghribTIME << '\n' 
           << "Isha: " << ishaTIME << '\n';
+}
+else {
+    std::string arg = argv[1];   
+
+    if (arg == "-z") {
+    std::cout << zuhrtime;
+ }
+ else if (arg == "-f") {
+    std::cout << fajrTIME;
+ }
+ else if (arg == "-a") {
+    std::cout << asrTIME;
+ }
+else if (arg == "-m") {
+    std::cout << maghribTIME;
+ }
+else if (arg == "-s") {
+    std::cout << sunriseTIME;
+ }
+ else if (arg == "-i") {
+    std::cout << ishaTIME;
+ }
+ else if (arg == "-h") {
+    std::cout << "You reached help. here are some commands:" << '\n' << "use the first letter of each prayer with a" << '\n' << "dash to get it's individual time. such as -z for Zuhr. (not capital)";
+ }
+ }
 return 0;
 }
