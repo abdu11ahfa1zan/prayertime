@@ -95,18 +95,26 @@ double pi = 3.14159265358979;
     int maghribmin = decimalmaghrib * 60;
     int mmmm = int(maghribdec1);
     std::string maghribTIME = std::to_string(mmmm) + ":" + std::to_string(maghribmin);    
+    
+    //sunrise, similiar to maghrib
+    double sunrisetime = duhr - (maghrib1 / 15.0);
+    double sunrisedec;
+    double decimalsunrize = modf(sunrisetime, &sunrisedec);
+    int sunrisemin = decimalsunrize * 60;
+    int ssss = int(sunrisedec);
+    std::string sunriseTIME = std::to_string(ssss) + ":" + std::to_string(sunrisemin); 
 
-
-//asr
-double asrangle = atan(1.0 / (2.0 + tan((latitude - solardeclination) * pi/180.0))) * (180.0 / pi);
-double asr = (sin(asrangle * pi/180.0) - sin(latitude * pi/180.0) * sin(solardeclination * pi/180.0)) / (cos(latitude * pi/180.0) * cos(solardeclination * pi/180.0));
-double asr1 = acos(asr) * (180.0 / pi);
-double asrtime = duhr + (asr1 / 15.0);
-int hours = (int)asrtime - 12;
-int minutes = (int)((asrtime - (int)asrtime) * 60);
-std::string asrTIME = std::to_string(hours) + ":" + std::to_string(minutes);
+    //asr
+    double asrangle = atan(1.0 / (2.0 + tan((latitude - solardeclination) * pi/180.0))) * (180.0 / pi);
+    double asr = (sin(asrangle * pi/180.0) - sin(latitude * pi/180.0) * sin(solardeclination * pi/180.0)) / (cos(latitude * pi/180.0) * cos(solardeclination * pi/180.0));
+    double asr1 = acos(asr) * (180.0 / pi);
+    double asrtime = duhr + (asr1 / 15.0);
+    int hours = (int)asrtime - 12;
+    int minutes = (int)((asrtime - (int)asrtime) * 60);
+    std::string asrTIME = std::to_string(hours) + ":" + std::to_string(minutes);
 
 std::cout << "Fajr: " << fajrTIME << '\n' 
+          << "Sunrise: " << sunriseTIME << '\n' 
           << "Zuhr: " << zuhrtime << '\n' 
           << "Asr: " << asrTIME << '\n' 
           << "Maghrib: " << maghribTIME << '\n' 
