@@ -74,7 +74,21 @@ double pi = 3.14159265358979;
     double decimalfajr = modf(fajrtime, &fajrdec);
     int fajrmin = decimalfajr * 60;
     int ffff = int(fajrdec);
-    std::string fajrTIME = std::to_string(ffff) + ":" + std::to_string(fajrmin);
+    std::string ffffStr;
+    std::string fajrminStr;
+    if(ffff < 10) {
+        ffffStr = "0" + std::to_string(ffff);
+    }
+    else {
+        ffffStr = std::to_string(ffff);
+    }
+    if(fajrmin < 10) {
+        fajrminStr = "0" + std::to_string(fajrmin);
+    }
+    else {
+        fajrminStr = std::to_string(fajrmin);
+    }
+    std::string fajrTIME = ffffStr + ":" + fajrminStr;
 
     //isha:::
     double ishatime = duhr + (fajr1 / 15.0);
@@ -83,7 +97,21 @@ double pi = 3.14159265358979;
     int ishadec1 = ishadec - 12;
     int ishamin = decimalisha * 60;
     int iiii = int(ishadec1);
-    std::string ishaTIME = std::to_string(iiii) + ":" + std::to_string(ishamin);
+    std::string iiiiStr;
+    std::string ishaminStr;
+    if(iiii < 10) {
+        iiiiStr = "0" + std::to_string(iiii);
+    }
+    else {
+        iiiiStr = std::to_string(iiii);
+    }
+    if(ishamin < 10) {
+     ishaminStr = "0" + std::to_string(ishamin);
+    }
+    else {
+        ishaminStr = std::to_string(ishamin);
+    }
+    std::string ishaTIME = iiiiStr + ":" + ishaminStr;
 
     //maghrib
     double maghrib = (sin(-0.833 * pi/180.0) - sin(latitude * pi/180.0) * sin(solardeclination * pi/180.0)) / (cos(latitude * pi/180.0) * cos(solardeclination * pi/180.0));
@@ -93,8 +121,22 @@ double pi = 3.14159265358979;
     double decimalmaghrib = modf(maghribtime, &maghribdec);
     int maghribdec1 = maghribdec - 12;
     int maghribmin = decimalmaghrib * 60;
+    std::string mmmmStr;
+    std::string maghribminStr;
     int mmmm = int(maghribdec1);
-    std::string maghribTIME = std::to_string(mmmm) + ":" + std::to_string(maghribmin);    
+    if(mmmm < 10) {
+        mmmmStr = "0" + std::to_string(mmmm);
+    }
+    else {
+        mmmmStr = std::to_string(mmmm);
+    }
+    if(maghribmin < 10) {
+        maghribminStr = "0" + std::to_string(maghribmin);
+    }
+    else {
+        maghribminStr = std::to_string(maghribmin);
+    }
+    std::string maghribTIME = mmmmStr + ":" + maghribminStr;    
     
     //sunrise, similiar to maghrib
     double sunrisetime = duhr - (maghrib1 / 15.0);
@@ -102,7 +144,21 @@ double pi = 3.14159265358979;
     double decimalsunrize = modf(sunrisetime, &sunrisedec);
     int sunrisemin = decimalsunrize * 60;
     int ssss = int(sunrisedec);
-    std::string sunriseTIME = std::to_string(ssss) + ":" + std::to_string(sunrisemin); 
+    std::string ssssStr;
+    std::string sunriseminStr;
+    if(ssss < 10) {
+        ssssStr = "0" + std::to_string(ssss);
+    }
+    else {
+        ssssStr = std::to_string(ssss);
+    }
+    if(sunrisemin < 10) {
+        sunriseminStr = "0" + std::to_string(sunrisemin);
+    }
+    else {
+        sunriseminStr = std::to_string(sunrisemin);
+    }
+    std::string sunriseTIME = ssssStr + ":" + sunriseminStr; 
 
     //asr
     double asrangle = atan(1.0 / (2.0 + tan((latitude - solardeclination) * pi/180.0))) * (180.0 / pi);
@@ -111,7 +167,24 @@ double pi = 3.14159265358979;
     double asrtime = duhr + (asr1 / 15.0);
     int hours = (int)asrtime - 12;
     int minutes = (int)((asrtime - (int)asrtime) * 60);
-    std::string asrTIME = std::to_string(hours) + ":" + std::to_string(minutes);
+    std::string hoursStr;
+    std::string minStr;
+    if(hours < 10) {
+        hoursStr = "0" + std::to_string(hours);
+    }
+    else {
+        hoursStr = std::to_string(hours);
+    }
+    if(minutes < 10) {
+        minStr = "0" + std::to_string(minutes);
+    }
+    else {
+        minStr = std::to_string(minutes);
+    }
+    std::string asrTIME = hoursStr + ":" + minStr;
+
+
+
 if (argc == 1) {
 std::cout << "Fajr: " << fajrTIME << '\n' 
           << "Sunrise: " << sunriseTIME << '\n' 
