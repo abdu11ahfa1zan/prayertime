@@ -63,8 +63,28 @@ double pi = 3.14159265358979;
     //duhrdec = 12
     int zzzz = int(duhrdec);
     int zuhrmin = decimal * 60;
-    std::string zuhrtime = std::to_string(zzzz) + ":" + std::to_string(zuhrmin);
-                                                                                //std::cout << '\n' << zuhrtime;
+    std::string zuhrminStr;
+    std::string zzzzStr;
+    std::string zuhrAMPM;
+    if(zzzz < 10) {
+        zzzzStr = "0" + std::to_string(zzzz);
+    }
+    else {
+        zzzzStr = std::to_string(zzzz);
+    }
+    if(zzzz < 12) {
+        zuhrAMPM = "AM";
+    }
+    else {
+        zuhrAMPM = "PM";
+    }
+    if(zuhrmin < 10) {
+           zuhrminStr = "0" + std::to_string(zuhrmin);
+    }
+    else {
+        zuhrminStr = std::to_string(zuhrmin);
+    }
+    std::string zuhrtime = zzzzStr + ":" + zuhrminStr + " " + zuhrAMPM;
 
     //fajr:::
     double fajr = (sin(-18.0 * pi/180.0) - sin(latitude * pi/180.0) * sin(solardeclination * pi/180.0)) / (cos(latitude * pi/180.0) * cos(solardeclination * pi/180.0));
@@ -88,7 +108,7 @@ double pi = 3.14159265358979;
     else {
         fajrminStr = std::to_string(fajrmin);
     }
-    std::string fajrTIME = ffffStr + ":" + fajrminStr;
+    std::string fajrTIME = ffffStr + ":" + fajrminStr + " AM";
 
     //isha:::
     double ishatime = duhr + (fajr1 / 15.0);
@@ -111,7 +131,7 @@ double pi = 3.14159265358979;
     else {
         ishaminStr = std::to_string(ishamin);
     }
-    std::string ishaTIME = iiiiStr + ":" + ishaminStr;
+    std::string ishaTIME = iiiiStr + ":" + ishaminStr + " PM";
 
     //maghrib
     double maghrib = (sin(-0.833 * pi/180.0) - sin(latitude * pi/180.0) * sin(solardeclination * pi/180.0)) / (cos(latitude * pi/180.0) * cos(solardeclination * pi/180.0));
@@ -136,7 +156,7 @@ double pi = 3.14159265358979;
     else {
         maghribminStr = std::to_string(maghribmin);
     }
-    std::string maghribTIME = mmmmStr + ":" + maghribminStr;    
+    std::string maghribTIME = mmmmStr + ":" + maghribminStr + " PM";    
     
     //sunrise, similiar to maghrib
     double sunrisetime = duhr - (maghrib1 / 15.0);
@@ -181,7 +201,7 @@ double pi = 3.14159265358979;
     else {
         minStr = std::to_string(minutes);
     }
-    std::string asrTIME = hoursStr + ":" + minStr;
+    std::string asrTIME = hoursStr + ":" + minStr + " PM";
 
 
 
