@@ -217,23 +217,43 @@ else {
     std::string arg = argv[1];   
 
     if (arg == "-z") {
-    std::cout << zuhrtime;
+    std::cout << zuhrtime << '\n';
  }
  else if (arg == "-f") {
-    std::cout << fajrTIME;
+    std::cout << fajrTIME << '\n';
  }
  else if (arg == "-a") {
-    std::cout << asrTIME;
+    std::cout << asrTIME << '\n';
  }
 else if (arg == "-m") {
-    std::cout << maghribTIME;
+    std::cout << maghribTIME << '\n';
  }
 else if (arg == "-s") {
-    std::cout << sunriseTIME;
+    std::cout << sunriseTIME << '\n';
  }
  else if (arg == "-i") {
-    std::cout << ishaTIME;
+    std::cout << ishaTIME << '\n';
  }
+ // Capital letters:
+  else if (arg == "-F") {
+    std::cout << fajrTIME << '\n';
+ }
+ else if (arg == "-A") {
+    std::cout << asrTIME << '\n';
+ }
+else if (arg == "-M") {
+    std::cout << maghribTIME << '\n';
+ }
+else if (arg == "-S") {
+    std::cout << sunriseTIME << '\n';
+ }
+ else if (arg == "-I") {
+    std::cout << ishaTIME << '\n';
+ }
+else if (arg == "-Z") {
+    std::cout << zuhrtime << '\n';
+}
+
  else if (arg == "-h") {
         std::cout << "You reached help." 
           << '\n' << "Use the first letter of each prayer with a dash" 
