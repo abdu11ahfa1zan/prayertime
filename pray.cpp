@@ -178,7 +178,7 @@ double pi = 3.14159265358979;
     else {
         sunriseminStr = std::to_string(sunrisemin);
     }
-    std::string sunriseTIME = ssssStr + ":" + sunriseminStr; 
+    std::string sunriseTIME = ssssStr + ":" + sunriseminStr + " AM"; 
 
     //asr
     double asrangle = atan(1.0 / (2.0 + tan((latitude - solardeclination) * pi/180.0))) * (180.0 / pi);
@@ -203,15 +203,15 @@ double pi = 3.14159265358979;
     }
     std::string asrTIME = hoursStr + ":" + minStr + " PM";
 
-
+// 
 
 if (argc == 1) {
-std::cout << "Fajr: " << fajrTIME << '\n' 
-          << "Sunrise: " << sunriseTIME << '\n' 
-          << "Zuhr: " << zuhrtime << '\n' 
-          << "Asr: " << asrTIME << '\n' 
-          << "Maghrib: " << maghribTIME << '\n' 
-          << "Isha: " << ishaTIME << '\n';
+std::cout << "Fajr:         " << fajrTIME << '\n' 
+          << "Sunrise:      " << sunriseTIME << '\n' 
+          << "Zuhr:         " << zuhrtime << '\n' 
+          << "Asr:          " << asrTIME << '\n' 
+          << "Maghrib:      " << maghribTIME << '\n' 
+          << "Isha:         " << ishaTIME << '\n';
 }
 else {
     std::string arg = argv[1];   
